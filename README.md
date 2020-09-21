@@ -50,15 +50,15 @@ var process = new RemoteProcess(original);
 Find a pattern in process main module
 ```csharp
 // Find a pattern in process main module
-process.FindPattern("A1 B8 58 D4 ?? ?? ?? ?? E4 85");
+IntPtr address = process.FindPattern("A1 B8 58 D4 ?? ?? ?? ?? E4 85");
 ```
 Find a pattern in selected process module
 ```csharp
-process["MySuperModuleName"].FindPattern("A1 B8 58 D4 ?? ?? ?? ?? E4 85");
+IntPtr address = process["MySuperModuleName"].FindPattern("A1 B8 58 D4 ?? ?? ?? ?? E4 85");
 ```
 Find a pattern and automatically add offset to it
 ```csharp
-process.FindPattern("A1 B8 58 D4 ?? ?? ?? ?? E4 85", 4);
+IntPtr address = process.FindPattern("A1 B8 58 D4 ?? ?? ?? ?? E4 85", 4);
 ```  
 
 ##### Memory reading
