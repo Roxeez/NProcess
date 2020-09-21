@@ -1,0 +1,7 @@
+version: 1.0.{build}
+platform: x86
+before_build:
+- cmd: nuget restore
+build:
+  project: NProcess.sln
+  verbosity: minimal

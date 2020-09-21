@@ -26,9 +26,10 @@ namespace NProcess.Memory
         /// <summary>
         /// Read a specific type from memory at defined pointer
         /// </summary>
-        /// <param name="pointer">Pointer where you want to read</param>
+        /// <param name="address">Address where you want to read</param>
+        /// <param name="offsets">Offsets to find address</param>
         /// <typeparam name="T">Type of value stored at this memory address</typeparam>
         /// <returns>Value found or default if none</returns>
-        T Read<T>(Pointer pointer);
+        T Read<T>(IntPtr address, params byte[] offsets);
     }
 }

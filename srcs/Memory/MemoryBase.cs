@@ -8,8 +8,6 @@ namespace NProcess.Memory
 {
     public abstract class MemoryBase : IMemory
     {
-        private readonly Dictionary<Pointer, IntPtr> cachedPointers = new Dictionary<Pointer, IntPtr>();
-        
         public T Read<T>(IntPtr address)
         {
             byte[] bytes = Read(address, Marshal.SizeOf<T>());
@@ -49,26 +47,20 @@ namespace NProcess.Memory
             return value == default ? default : (T)value;
         }
 
-        public T Read<T>(Pointer pointer)
+        public T Read<T>(IntPtr address, params byte[] offsets)
         {
-            if (pointer.Offsets.Length == 0)
+            if (offsets == null || offsets.Length == 0)
             {
-                return Read<T>(pointer.Address);
+                return Read<T>(address);
             }
-
-            IntPtr address = cachedPointers.GetValueOrDefault(pointer);
-            if (address == default)
+            
+            IntPtr read = Read<IntPtr>(address);
+            for (int i = 0; i < offsets.Length - 1; i++)
             {
-                address = Read<IntPtr>(pointer.Address);
-                for (int i = 0; i < pointer.Offsets.Length - 1; i++)
-                {
-                    address = Read<IntPtr>(address + pointer.Offsets[i]);
-                }
-
-                cachedPointers[pointer] = address;
+                read = Read<IntPtr>(read + offsets[i]);
             }
-
-            return Read<T>(address + pointer.Offsets.Last());
+            
+            return Read<T>(read + offsets.Last());
         }
 
         public abstract byte[] Read(IntPtr address, int length);
