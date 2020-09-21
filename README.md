@@ -49,7 +49,6 @@ var process = new RemoteProcess(original);
 ##### Pattern
 Find a pattern in process main module
 ```csharp
-// Find a pattern in process main module
 IntPtr address = process.FindPattern("A1 B8 58 D4 ?? ?? ?? ?? E4 85");
 ```
 Find a pattern in selected process module
