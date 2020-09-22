@@ -78,8 +78,3 @@ public static void Main(string[] args)
     }
 }
 ```
-
-### Todos
- - Detour
- - Window interaction
- - Keyboard interaction
