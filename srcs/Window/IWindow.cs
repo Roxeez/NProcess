@@ -16,6 +16,16 @@ namespace NProcess.Window
         /// Bring window to front
         /// </summary>
         void Focus();
+
+        /// <summary>
+        /// Hide window
+        /// </summary>
+        void Hide();
+        
+        /// <summary>
+        /// Show window
+        /// </summary>
+        void Show();
         
         /// <summary>
         /// Minimize window
