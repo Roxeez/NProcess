@@ -1,11 +1,11 @@
-﻿﻿using System.Diagnostics;
+﻿using System.Diagnostics;
 using NProcess.Memory;
- using NProcess.Memory.Local;
+using NProcess.Memory.Local;
 
- namespace NProcess
+namespace NProcess
 {
     /// <summary>
-    /// Class used when you need to interact with local process (ex: injected .dll)
+    ///     Class used when you need to interact with local process (ex: injected .dll)
     /// </summary>
     public sealed class LocalProcess : ProcessBase
     {
@@ -20,7 +20,6 @@ using NProcess.Memory;
 
         public override void Dispose()
         {
-            
         }
     }
 }

@@ -1,45 +1,43 @@
-﻿﻿using System;
- using System.Collections.Generic;
- using System.Diagnostics;
- using System.Globalization;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
- using System.Runtime.InteropServices;
- using NProcess.Extension;
- using NProcess.Memory;
+using System.Runtime.InteropServices;
+using NProcess.Extension;
+using NProcess.Memory;
 
- namespace NProcess.Module
+namespace NProcess.Module
 {
-    public sealed class Module : IModule
+    public sealed class NProcessModule : IModule
     {
         private readonly Dictionary<Pattern, IntPtr> cachedPatterns;
-        
-        public Module(IProcess process, string name, IntPtr address, int size)
+
+        public NProcessModule(IProcess process, string name, IntPtr address, int size)
         {
             Process = process;
             Name = name;
             Address = address;
             Size = size;
-            
+
             cachedPatterns = new Dictionary<Pattern, IntPtr>();
         }
-        
+
         public string Name { get; }
         public IntPtr Address { get; }
         public int Size { get; }
         public IProcess Process { get; }
-        
+
         public T ReadMemory<T>(IntPtr address)
         {
             Type type = typeof(T);
             byte[] bytes = Process.MemoryReader.Read(address, Marshal.SizeOf<T>());
-            
+
             object value = default;
             if (type == typeof(IntPtr))
             {
                 switch (bytes.Length)
                 {
                     case 1:
-                        value = new IntPtr(BitConverter.ToInt32(new byte[] { bytes[0], 0, 0, 0}, 0));
+                        value = new IntPtr(BitConverter.ToInt32(new byte[] { bytes[0], 0, 0, 0 }, 0));
                         break;
                     case 2:
                         value = new IntPtr(BitConverter.ToInt32(new byte[] { bytes[0], bytes[1], 0, 0 }, 0));
@@ -85,7 +83,7 @@ using System.Linq;
             IntPtr output = cachedPatterns.GetValueOrDefault(pattern);
             if (output == IntPtr.Zero)
             {
-                output = this.Find(pattern);
+                output = this.FindPattern(pattern);
                 if (output == IntPtr.Zero)
                 {
                     return IntPtr.Zero;
