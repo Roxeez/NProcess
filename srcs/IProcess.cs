@@ -1,46 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using NProcess.Extension;
 using NProcess.Memory;
 using NProcess.Module;
+using NProcess.Window;
 
 namespace NProcess
 {
     /// <summary>
-    /// Represent a process
+    ///     Represent a process
     /// </summary>
     public interface IProcess : IDisposable
     {
         /// <summary>
-        /// Id of the process
+        ///     Id of process
         /// </summary>
         int Id { get; }
-        
+
         /// <summary>
-        /// Name of the process
+        ///     Name of process
         /// </summary>
         string Name { get; }
-        
+
         /// <summary>
-        /// Main module of the process
+        ///     Contains all modules of process
         /// </summary>
-        IModule MainModule { get; }
-        
+        IEnumerable<IModule> Modules { get; }
+
         /// <summary>
-        /// Get a module using module name
+        ///     Contains all windows of process
         /// </summary>
-        /// <param name="name"></param>
-        IModule this[string name] { get; }
-        
+        IEnumerable<IWindow> Windows { get; }
+
         /// <summary>
-        /// Process memory reader
+        ///     Main module of process
+        /// </summary>
+        IModule Module { get; }
+
+        /// <summary>
+        ///     Main window of process
+        /// </summary>
+        IWindow Window { get; }
+
+        /// <summary>
+        ///     Process memory reader
         /// </summary>
         IMemoryReader MemoryReader { get; }
-        
+
         /// <summary>
-        /// Process memory writer
+        ///     Process memory writer
         /// </summary>
         IMemoryWriter MemoryWriter { get; }
+
+        /// <summary>
+        ///     Get module by name
+        /// </summary>
+        /// <param name="name">Module name</param>
+        /// <returns>Module found or null if none</returns>
+        IModule GetModule(string name);
+
+        /// <summary>
+        ///     Get window by name
+        /// </summary>
+        /// <param name="name">Window name</param>
+        /// <returns>Window found or null if none</returns>
+        IWindow GetWindow(string name);
     }
 }

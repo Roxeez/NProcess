@@ -1,18 +1,26 @@
 ﻿using System;
 
-namespace NProcess.Module
+namespace NProcess.Memory
 {
+    /// <summary>
+    ///     Represent a memory pattern
+    /// </summary>
     public sealed class Pattern : IEquatable<Pattern>
     {
-        public string Content { get; }
-        public int Offset { get; }
-        
+        /// <summary>
+        ///     Create a new pattern
+        /// </summary>
+        /// <param name="content">Content of the pattern (format: A1 B7 ?? ?? ?? ?? B0 7E etc...)</param>
+        /// <param name="offset">Offset of this pattern</param>
         public Pattern(string content, int offset = 0)
         {
             Content = content;
             Offset = offset;
         }
-        
+
+        public string Content { get; }
+        public int Offset { get; }
+
         public bool Equals(Pattern other)
         {
             if (ReferenceEquals(null, other))
@@ -37,7 +45,7 @@ namespace NProcess.Module
         {
             unchecked
             {
-                return ((Content != null ? Content.GetHashCode() : 0) * 397) ^ Offset;
+                return (Content != null ? Content.GetHashCode() : 0) * 397 ^ Offset;
             }
         }
     }

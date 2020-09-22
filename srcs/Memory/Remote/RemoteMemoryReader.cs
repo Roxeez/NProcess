@@ -12,7 +12,7 @@ namespace NProcess.Memory.Remote
         {
             this.handle = handle;
         }
-        
+
         public byte[] Read(IntPtr address, int length)
         {
             var bytes = new byte[length];
