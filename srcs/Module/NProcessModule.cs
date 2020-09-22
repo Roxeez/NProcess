@@ -29,7 +29,7 @@ namespace NProcess.Module
         public T ReadMemory<T>(IntPtr address)
         {
             Type type = typeof(T);
-            byte[] bytes = Process.MemoryReader.Read(address, Marshal.SizeOf<T>());
+            byte[] bytes = Process.Memory.Read(address, Marshal.SizeOf<T>());
 
             object value = default;
             if (type == typeof(IntPtr))

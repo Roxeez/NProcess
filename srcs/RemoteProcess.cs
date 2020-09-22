@@ -3,7 +3,6 @@ using System.Diagnostics;
 using NProcess.Interop;
 using NProcess.Interop.Enum;
 using NProcess.Memory;
-using NProcess.Memory.Remote;
 
 namespace NProcess
 {
@@ -18,12 +17,10 @@ namespace NProcess
         {
             handle = Kernel32.OpenProcess(ProcessAccess.All, false, process.Id);
 
-            MemoryReader = new RemoteMemoryReader(handle);
-            MemoryWriter = new RemoteMemoryWriter(handle);
+            Memory = new RemoteMemory(handle);
         }
 
-        public override IMemoryReader MemoryReader { get; }
-        public override IMemoryWriter MemoryWriter { get; }
+        public override IMemory Memory { get; }
 
         public override void Dispose()
         {

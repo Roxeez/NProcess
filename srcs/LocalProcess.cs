@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using NProcess.Memory;
-using NProcess.Memory.Local;
 
 namespace NProcess
 {
@@ -11,12 +10,11 @@ namespace NProcess
     {
         public LocalProcess() : base(Process.GetCurrentProcess())
         {
-            MemoryReader = new LocalMemoryReader();
-            MemoryWriter = new LocalMemoryWriter();
+            Memory = new LocalMemory();
         }
 
-        public override IMemoryReader MemoryReader { get; }
-        public override IMemoryWriter MemoryWriter { get; }
+
+        public override IMemory Memory { get; }
 
         public override void Dispose()
         {

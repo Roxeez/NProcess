@@ -2,13 +2,13 @@
 using System.ComponentModel;
 using NProcess.Interop;
 
-namespace NProcess.Memory.Remote
+namespace NProcess.Memory
 {
-    public class RemoteMemoryReader : IMemoryReader
+    public class RemoteMemory : IMemory
     {
         private readonly IntPtr handle;
 
-        public RemoteMemoryReader(IntPtr handle)
+        public RemoteMemory(IntPtr handle)
         {
             this.handle = handle;
         }
@@ -22,6 +22,11 @@ namespace NProcess.Memory.Remote
             }
 
             return bytes;
+        }
+
+        public void Write(IntPtr address, byte[] bytes)
+        {
+            throw new NotImplementedException();
         }
     }
 }
