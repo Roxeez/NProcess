@@ -9,6 +9,7 @@ Since NProcess is still in development, much features will be added later
 
 * Memory reading/writting
 * Pattern scanning
+* Window/Keyboard/Mouse interaction
 
 ## Installation
 
@@ -75,6 +76,38 @@ public static void Main(string[] args)
 
         // Write value to pointer
         module.WriteMemory<int>(mpPointer, 2500);
+    }
+}
+```
+
+**Interact with window/keyboard/mouse**
+```csharp
+public static void Main(string[] args)
+{
+    // Find our target process
+    Process source = Process.GetProcessesByName("NostaleClientX").FirstOrDefault();
+    if (source == null)
+    {
+        return;
+    }
+
+    using (IProcess process = new RemoteProcess(source))
+    {
+        // Get window using window name
+        IWindow window = process.GetWindow("NosTale");
+        if (window == null)
+        {
+            return;
+        }
+        
+        // Change window title
+        window.Title = "NProcess";
+        
+        // Press enter key and release it directly
+        window.Keyboard.PressKey(Key.Enter);
+        
+        // Hold A key pressed for 3 seconds
+        window.Keyboard.HoldKey(Key.A, TimeSpan.FromSeconds(3));
     }
 }
 ```
