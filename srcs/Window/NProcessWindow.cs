@@ -40,6 +40,16 @@ namespace NProcess.Window
             User32.SetForegroundWindow(handle);
         }
 
+        public void Hide()
+        {
+            User32.ShowWindow(handle, WindowState.Hide);
+        }
+
+        public void Show()
+        {
+            User32.ShowWindow(handle, WindowState.Show);
+        }
+
         public void Minimize()
         {
             User32.ShowWindow(handle, WindowState.Minimize);
