@@ -41,8 +41,7 @@ namespace NProcess
             return windows.Find(x => x.Title == name);
         }
 
-        public abstract IMemoryReader MemoryReader { get; }
-        public abstract IMemoryWriter MemoryWriter { get; }
+        public abstract IMemory Memory { get; }
 
         public abstract void Dispose();
     }

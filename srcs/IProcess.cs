@@ -42,14 +42,10 @@ namespace NProcess
         IWindow Window { get; }
 
         /// <summary>
-        ///     Process memory reader
+        ///     Memory of this process
         /// </summary>
-        IMemoryReader MemoryReader { get; }
-
-        /// <summary>
-        ///     Process memory writer
-        /// </summary>
-        IMemoryWriter MemoryWriter { get; }
+        IMemory Memory { get; }
+        
 
         /// <summary>
         ///     Get module by name

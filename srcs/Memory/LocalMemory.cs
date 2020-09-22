@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace NProcess.Memory.Local
+namespace NProcess.Memory
 {
-    public class LocalMemoryReader : IMemoryReader
+    public class LocalMemory : IMemory
     {
         public byte[] Read(IntPtr address, int length)
         {
@@ -23,6 +23,11 @@ namespace NProcess.Memory.Local
             }
 
             return output;
+        }
+
+        public void Write(IntPtr address, byte[] bytes)
+        {
+            throw new NotImplementedException();
         }
     }
 }

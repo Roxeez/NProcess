@@ -13,7 +13,7 @@ namespace NProcess.Extension
             byte[] knownBytes = pattern.Content.Split(' ').Select(x => x == "??" ? (byte)0 : byte.Parse(x, NumberStyles.HexNumber)).ToArray();
             string[] mask = pattern.Content.Split(' ').Select(x => x == "??" ? "?" : "x").ToArray();
 
-            byte[] dump = module.Process.MemoryReader.Read(module.Address, module.Size);
+            byte[] dump = module.Process.Memory.Read(module.Address, module.Size);
             for (int i = 0; i < dump.Length; i++)
             {
                 if (dump[i] == knownBytes[0])
