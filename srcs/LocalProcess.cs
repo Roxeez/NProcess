@@ -10,10 +10,9 @@ namespace NProcess
     {
         public LocalProcess() : base(Process.GetCurrentProcess())
         {
-            Memory = new LocalMemory();
+            Memory = new LocalMemory(Process.GetCurrentProcess().Handle);
         }
-
-
+        
         public override IMemory Memory { get; }
 
         public override void Dispose()
