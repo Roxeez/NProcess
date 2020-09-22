@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using NProcess.Extension;
@@ -36,12 +37,6 @@ namespace NProcess.Module
             {
                 switch (bytes.Length)
                 {
-                    case 1:
-                        value = new IntPtr(BitConverter.ToInt32(new byte[] { bytes[0], 0, 0, 0 }, 0));
-                        break;
-                    case 2:
-                        value = new IntPtr(BitConverter.ToInt32(new byte[] { bytes[0], bytes[1], 0, 0 }, 0));
-                        break;
                     case 4:
                         value = new IntPtr(BitConverter.ToInt32(bytes, 0));
                         break;
@@ -59,12 +54,47 @@ namespace NProcess.Module
                 value = BitConverter.ToInt64(bytes, 0);
             }
 
-            return value == default ? default : (T)value;
+            if (value == default)
+            {
+                throw new Win32Exception($"Failed to convert bytes to {type.Name}");
+            }
+
+            return (T)value;
         }
 
         public void WriteMemory<T>(IntPtr address, T value)
         {
-            throw new NotImplementedException();
+            Type type = typeof(T);
+            int size = Marshal.SizeOf<T>();
+
+            byte[] bytes = default;
+            if (type == typeof(IntPtr))
+            {
+                switch (size)
+                {
+                    case 4:
+                        bytes = BitConverter.GetBytes(((IntPtr)(object)value).ToInt32());
+                        break;
+                    case 8:
+                        bytes = BitConverter.GetBytes(((IntPtr)(object)value).ToInt64());
+                        break;
+                }
+            }
+            else if (type == typeof(int))
+            {
+                bytes = BitConverter.GetBytes((int) (object) value);
+            }
+            else if (type == typeof(long))
+            {
+                bytes = BitConverter.GetBytes((long) (object) value);
+            }
+
+            if (bytes == default)
+            {
+                throw new Win32Exception($"Failed to convert {type.Name} to bytes");
+            }
+            
+            Process.Memory.Write(address, bytes);
         }
 
         public IntPtr GetPointer(IntPtr address, params byte[] offsets)
