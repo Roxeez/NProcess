@@ -1,7 +1,8 @@
 ﻿﻿using System.Diagnostics;
 using NProcess.Memory;
+ using NProcess.Memory.Local;
 
-namespace NProcess
+ namespace NProcess
 {
     /// <summary>
     /// Class used when you need to interact with local process (ex: injected .dll)
@@ -10,9 +11,16 @@ namespace NProcess
     {
         public LocalProcess() : base(Process.GetCurrentProcess())
         {
-            Memory = new LocalMemory();
+            MemoryReader = new LocalMemoryReader();
+            MemoryWriter = new LocalMemoryWriter();
         }
 
-        public override IMemory Memory { get; }
+        public override IMemoryReader MemoryReader { get; }
+        public override IMemoryWriter MemoryWriter { get; }
+
+        public override void Dispose()
+        {
+            
+        }
     }
 }

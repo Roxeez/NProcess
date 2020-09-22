@@ -23,7 +23,9 @@ namespace NProcess
         public string Name => process.ProcessName;
         public IModule MainModule { get; }
         public IModule this[string name] => modules.GetValueOrDefault(name);
+        public abstract IMemoryReader MemoryReader { get; }
+        public abstract IMemoryWriter MemoryWriter { get; }
 
-        public abstract IMemory Memory { get; }
+        public abstract void Dispose();
     }
 }

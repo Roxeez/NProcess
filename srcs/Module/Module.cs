@@ -1,17 +1,18 @@
 ﻿﻿using System;
-using System.Globalization;
+ using System.Diagnostics;
+ using System.Globalization;
 using System.Linq;
+ using System.Runtime.InteropServices;
+ using NProcess.Extension;
+ using NProcess.Memory;
 
-namespace NProcess.Module
+ namespace NProcess.Module
 {
     public sealed class Module : IModule
     {
-        private readonly IProcess process;
-        
         public Module(IProcess process, string name, IntPtr address, int size)
         {
-            this.process = process;
-            
+            Process = process;
             Name = name;
             Address = address;
             Size = size;
@@ -20,53 +21,75 @@ namespace NProcess.Module
         public string Name { get; }
         public IntPtr Address { get; }
         public int Size { get; }
-
-        public IntPtr FindPattern(string pattern, int offset = 0)
+        public IProcess Process { get; }
+        
+        public T ReadMemory<T>(IntPtr address)
         {
-            byte[] knownBytes = pattern.Split(' ').Select(x => x == "??" ? (byte)0 : byte.Parse(x, NumberStyles.HexNumber)).ToArray();
-            string[] mask = pattern.Split(' ').Select(x => x == "??" ? "?" : "x").ToArray();
-
-            byte[] dump = process.Memory.Read(Address, Size);
-            for (int i = 0; i < dump.Length; i++)
+            Type type = typeof(T);
+            byte[] bytes = Process.MemoryReader.Read(address, Marshal.SizeOf<T>());
+            
+            object value = default;
+            if (type == typeof(IntPtr))
             {
-                if (dump[i] == knownBytes[0])
+                switch (bytes.Length)
                 {
-                    var region = new byte[mask.Length];
-                    for (int j = 0; j < region.Length; j++)
-                    {
-                        region[j] = dump[i + j];
-                    }
-
-                    if (IsPatternMatching(knownBytes, region, mask))
-                    {
-                        return new IntPtr((int)Address + i + offset);
-                    }
-                
-                    i += knownBytes.Length - (knownBytes.Length / 2);
+                    case 1:
+                        value = new IntPtr(BitConverter.ToInt32(new byte[] { bytes[0], 0, 0, 0}, 0));
+                        break;
+                    case 2:
+                        value = new IntPtr(BitConverter.ToInt32(new byte[] { bytes[0], bytes[1], 0, 0 }, 0));
+                        break;
+                    case 4:
+                        value = new IntPtr(BitConverter.ToInt32(bytes, 0));
+                        break;
+                    case 8:
+                        value = new IntPtr(BitConverter.ToInt64(bytes, 0));
+                        break;
                 }
             }
-            
-            return IntPtr.Zero;
+            else if (type == typeof(int))
+            {
+                value = BitConverter.ToInt32(bytes, 0);
+            }
+            else if (type == typeof(long))
+            {
+                value = BitConverter.ToInt64(bytes, 0);
+            }
+
+            return value == default ? default : (T)value;
         }
 
-        private static bool IsPatternMatching(byte[] knownBytes, byte[] region, string[] mask)
+        public void WriteMemory<T>(IntPtr address, T value)
         {
-            for (int i = 0; i < mask.Length; i++)
+            throw new NotImplementedException();
+        }
+
+        public IntPtr GetPointer(IntPtr address, params byte[] offsets)
+        {
+            IntPtr read = ReadMemory<IntPtr>(address);
+            for (int i = 0; i < offsets.Length - 1; i++)
             {
-                if (mask[i] == "?")
-                {
-                    continue;
-                }
-
-                if (knownBytes[i] == region[i])
-                {
-                    continue;
-                }
-
-                return false;
+                read = ReadMemory<IntPtr>(new IntPtr(read.ToInt32() + offsets[i]));
             }
 
-            return true;
+            return read + offsets.Last();
+        }
+
+        public IntPtr GetPointer(Pattern pattern, params byte[] offsets)
+        {
+            IntPtr output = this.Find(pattern);
+            if (output == IntPtr.Zero)
+            {
+                return IntPtr.Zero;
+            }
+
+            IntPtr address = ReadMemory<IntPtr>(output);
+            if (address == IntPtr.Zero)
+            {
+                return address;
+            }
+
+            return GetPointer(ReadMemory<IntPtr>(address), offsets);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace NProcess
     /// <summary>
     /// Represent a process
     /// </summary>
-    public interface IProcess
+    public interface IProcess : IDisposable
     {
         /// <summary>
         /// Id of the process
@@ -34,9 +34,13 @@ namespace NProcess
         IModule this[string name] { get; }
         
         /// <summary>
-        /// Get a new memory object to interact with process memory
+        /// Process memory reader
         /// </summary>
-        /// <returns>Memory object created</returns>
-        IMemory Memory { get; }
+        IMemoryReader MemoryReader { get; }
+        
+        /// <summary>
+        /// Process memory writer
+        /// </summary>
+        IMemoryWriter MemoryWriter { get; }
     }
 }

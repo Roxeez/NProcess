@@ -1,12 +1,11 @@
-﻿﻿using System;
+﻿using System;
 using System.ComponentModel;
-using System.Runtime.InteropServices;
 
-namespace NProcess.Memory
+namespace NProcess.Memory.Local
 {
-    public sealed class LocalMemory : MemoryBase
+    public class LocalMemoryReader : IMemoryReader
     {
-        public override byte[] Read(IntPtr address, int length)
+        public byte[] Read(IntPtr address, int length)
         {
             var output = new byte[length];
             unsafe

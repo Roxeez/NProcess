@@ -1,22 +1,22 @@
-﻿﻿using System;
+﻿using System;
 using System.ComponentModel;
 using NProcess.Interop;
 
-namespace NProcess.Memory
+namespace NProcess.Memory.Remote
 {
-    public sealed class RemoteMemory : MemoryBase
+    public class RemoteMemoryReader : IMemoryReader
     {
         private readonly IntPtr handle;
-        
-        public RemoteMemory(IntPtr handle)
+
+        public RemoteMemoryReader(IntPtr handle)
         {
             this.handle = handle;
         }
         
-        public override byte[] Read(IntPtr address, int length)
+        public byte[] Read(IntPtr address, int length)
         {
             var bytes = new byte[length];
-            if (!Kernel32.ReadProcessMemory(handle, address, bytes, bytes.Length, out int count))
+            if (!Kernel32.ReadProcessMemory(handle, address, bytes, bytes.Length, out int count) || count != length)
             {
                 throw new Win32Exception($"Failed to read memory {address}");
             }

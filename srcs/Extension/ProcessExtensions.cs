@@ -24,17 +24,5 @@ namespace NProcess.Extension
         {
             return new Module.Module(process, module.ModuleName, module.BaseAddress, module.ModuleMemorySize);
         }
-
-        /// <summary>
-        /// Find a pattern in process main module
-        /// </summary>
-        /// <param name="process">Process used</param>
-        /// <param name="pattern">Pattern to find (ex: A1 8B 3E ?? ?? ?? ?? F1 47)</param>
-        /// <param name="offset">Offset of the pattern</param>
-        /// <returns>Address found or IntPtr.Zero if not found</returns>
-        public static IntPtr FindPattern(this IProcess process, string pattern, int offset = 0)
-        {
-            return process.MainModule?.FindPattern(pattern, offset) ?? IntPtr.Zero;
-        }
     }
 }
