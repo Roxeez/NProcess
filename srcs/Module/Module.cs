@@ -1,4 +1,5 @@
 ﻿﻿using System;
+ using System.Collections.Generic;
  using System.Diagnostics;
  using System.Globalization;
 using System.Linq;
@@ -10,12 +11,16 @@ using System.Linq;
 {
     public sealed class Module : IModule
     {
+        private readonly Dictionary<Pattern, IntPtr> cachedPatterns;
+        
         public Module(IProcess process, string name, IntPtr address, int size)
         {
             Process = process;
             Name = name;
             Address = address;
             Size = size;
+            
+            cachedPatterns = new Dictionary<Pattern, IntPtr>();
         }
         
         public string Name { get; }
@@ -77,10 +82,16 @@ using System.Linq;
 
         public IntPtr GetPointer(Pattern pattern, params byte[] offsets)
         {
-            IntPtr output = this.Find(pattern);
+            IntPtr output = cachedPatterns.GetValueOrDefault(pattern);
             if (output == IntPtr.Zero)
             {
-                return IntPtr.Zero;
+                output = this.Find(pattern);
+                if (output == IntPtr.Zero)
+                {
+                    return IntPtr.Zero;
+                }
+
+                cachedPatterns[pattern] = output;
             }
 
             IntPtr address = ReadMemory<IntPtr>(output);
