@@ -1,4 +1,4 @@
-﻿using NProcess.Interop.Enum;
+﻿using NProcess.Window.Keyboard;
 
 namespace NProcess.Window
 {
@@ -11,35 +11,50 @@ namespace NProcess.Window
         ///     Title of this window
         /// </summary>
         string Title { get; set; }
-        
+
         /// <summary>
-        /// Bring window to front
+        ///     Check if this window is main window of process
+        /// </summary>
+        bool IsMainWindow { get; }
+
+        /// <summary>
+        ///     Defined if this window is focused or not (foreground)
+        /// </summary>
+        bool IsFocused { get; }
+
+        /// <summary>
+        ///     Keyboard object attached to this window
+        /// </summary>
+        IKeyboard Keyboard { get; }
+
+        /// <summary>
+        ///     Bring window to front
         /// </summary>
         void Focus();
 
         /// <summary>
-        /// Hide window
+        ///     Hide window
         /// </summary>
         void Hide();
-        
+
         /// <summary>
-        /// Show window
+        ///     Show window
         /// </summary>
         void Show();
-        
+
         /// <summary>
-        /// Minimize window
+        ///     Minimize window
         /// </summary>
         void Minimize();
-        
+
         /// <summary>
-        /// Maximize window (take all screen space)
+        ///     Maximize window (take all screen space)
         /// </summary>
         void Maximize();
-        
+
         /// <summary>
-        /// Restore window
-        /// Ex: if window was minimized window will be at the same position where it was before being minimized
+        ///     Restore window
+        ///     Ex: if window was minimized window will be at the same position where it was before being minimized
         /// </summary>
         void Restore();
     }

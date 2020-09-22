@@ -6,6 +6,6 @@
         Show = 1,
         Maximize = 3,
         Minimize = 6,
-        Restore = 9,
+        Restore = 9
     }
 }

@@ -18,7 +18,7 @@ namespace NProcess
             this.process = Process.GetCurrentProcess();
 
             modules = process.GetModules(this);
-            windows = process.GetWindows();
+            windows = process.GetWindows(this);
 
             Module = GetModule(process.MainModule?.ModuleName);
             Window = GetWindow(process.MainWindowTitle);

@@ -2,16 +2,21 @@
 using NProcess.Interop;
 using NProcess.Interop.Enum;
 using NProcess.Utility;
+using NProcess.Window.Keyboard;
 
 namespace NProcess.Window
 {
     public class NProcessWindow : IWindow
     {
         private readonly IntPtr handle;
+        private readonly IProcess process;
 
-        public NProcessWindow(IntPtr handle)
+        public NProcessWindow(IProcess process, IntPtr handle)
         {
+            this.process = process;
             this.handle = handle;
+
+            Keyboard = new NProcessKeyboard(handle);
         }
 
         public string Title
@@ -19,15 +24,18 @@ namespace NProcess.Window
             get => WindowUtility.GetWindowTitle(handle);
             set => User32.SetWindowText(handle, value);
         }
-        
+
+        public bool IsMainWindow => process.Window == this;
+        public bool IsFocused => User32.GetForegroundWindow() == handle;
+        public IKeyboard Keyboard { get; }
 
         public void Focus()
         {
-            if (User32.GetForegroundWindow() == handle)
+            if (IsFocused)
             {
                 return;
             }
-            
+
             /*
              * Just calling SetForegroundWindow won't work in some case according to
              * https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setforegroundwindow

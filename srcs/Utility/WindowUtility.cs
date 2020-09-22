@@ -23,7 +23,7 @@ namespace NProcess.Utility
             }, IntPtr.Zero);
             return windows;
         }
-        
+
 
         public static string GetWindowTitle(IntPtr hWnd)
         {
