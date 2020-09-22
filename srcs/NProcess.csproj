@@ -5,6 +5,16 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<OutputPath>$(SolutionDir)\build</OutputPath>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Title>NProcess</Title>
+		<Authors>Roxeez</Authors>
+		<Description>Library made to easily interact with local or remote process (memory, thread etc...)</Description>
+		<Copyright>Roxeez</Copyright>
+		<PackageProjectUrl>https://github.com/Roxeez/NProcess</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/Roxeez/NProcess.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>c# memory read write pattern local remote cheat net</PackageTags>
+		<PackageLicenseUrl>https://raw.githubusercontent.com/Roxeez/NProcess/master/LICENSE</PackageLicenseUrl>
     </PropertyGroup>
 
 </Project>
