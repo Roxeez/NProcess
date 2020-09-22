@@ -22,7 +22,7 @@ namespace NProcess.Extension
             return modules;
         }
 
-        public static List<IWindow> GetWindows(this Process process)
+        public static List<IWindow> GetWindows(this Process process, IProcess typedProcess)
         {
             var output = new List<IWindow>();
             IEnumerable<IntPtr> windows = WindowUtility.GetWindows(process);
@@ -34,7 +34,7 @@ namespace NProcess.Extension
                     continue;
                 }
 
-                output.Add(new NProcessWindow(handle));
+                output.Add(new NProcessWindow(typedProcess, handle));
             }
 
             return output;

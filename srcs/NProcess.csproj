@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-		<OutputPath>$(SolutionDir)\build</OutputPath>
+		<OutputPath>$(SolutionDir)\build\</OutputPath>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Title>NProcess</Title>
 		<Authors>Roxeez</Authors>
@@ -16,5 +16,9 @@
 		<PackageTags>c# memory read write pattern local remote cheat net</PackageTags>
 		<PackageLicenseUrl>https://raw.githubusercontent.com/Roxeez/NProcess/master/LICENSE</PackageLicenseUrl>
     </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Window\Mouse" />
+    </ItemGroup>
 
 </Project>
