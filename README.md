@@ -28,57 +28,56 @@ Using Package Reference
 ```
 
 ## Example
-#### IProcess object creation
-Local process
+**Read/Write remote process memory using static address and offsets**
 ```csharp
-var process = new LocalProcess();
-```
-Remote process
-```csharp
-Process original = Process.GetProcessesByName("MySuperProcess").FirstOrDefault();
-if (original == null)
+public static void Main(string[] args)
 {
-    Console.WriteLine("Can't found process");
-    return;
+    // Find our target process
+    Process source = Process.GetProcessesByName("NostaleClientX").FirstOrDefault();
+    if (source == null)
+    {
+        return;
+    }
+
+    // Create new RemoteProcess instance to interact with previously found process
+    using (var process = new RemoteProcess(source))
+    {
+        // Get process main module
+        IModule module = process.MainModule;
+        
+        // Get pointers using static address and offsets
+        IntPtr hpPointer = module.GetPointer(new IntPtr(0x895898), 0xC4, 0x4C);
+        
+        // Read value from pointer
+        int hp = module.ReadMemory<int>(hpPointer);
+
+        // Write value to pointer
+        module.WriteMemory<int>(hpPointer, 2500);
+    }
 }
+```
 
-var process = new RemoteProcess(original);
-```
-#### Working with IProcess object
+**Read/Write local process memory using pattern and offsets**
+```csharp
+public static void Main(string[] args)
+{
+    // Create new LocalProcess to interact with our process (used if you dll is injected into process)
+    using (var process = new LocalProcess())
+    {
+        // Get process main module
+        IModule module = process.MainModule;
+        
+        // Get pointer using pattern and offsets
+        IntPtr mpPointer = module.GetPointer(new Pattern("8D 55 E0 A1 ?? ?? ?? ?? 8B 00 8B 80", 4), 0xC8, 0x4C);
+        
+        // Read value from pointer
+        int mp = module.ReadMemory<int>(mpPointer);
 
-##### Pattern
-Find a pattern in process main module
-```csharp
-IntPtr address = process.FindPattern("A1 B8 58 D4 ?? ?? ?? ?? E4 85");
+        // Write value to pointer
+        module.WriteMemory<int>(mpPointer, 2500);
+    }
+}
 ```
-Find a pattern in selected process module
-```csharp
-IntPtr address = process["MySuperModuleName"].FindPattern("A1 B8 58 D4 ?? ?? ?? ?? E4 85");
-```
-Find a pattern and automatically add offset to it
-```csharp
-IntPtr address = process.FindPattern("A1 B8 58 D4 ?? ?? ?? ?? E4 85", 4);
-```  
-
-##### Memory reading
-Read from address without offsets
-```csharp
-string value = process.Memory.Read<string>(new IntPtr(0x458732));
-```
-Read from address with offsets
-```csharp
-int value = process.Memory.Read<int>(new IntPtr(0x458732), 0xC4, 0x4C);
-```  
-
-##### Memory writing
-Write to address without offsets
-```csharp
-process.Memory.Write<int>(24, new IntPtr(0x458732));
-```
-Write to address with offsets
-```csharp
-process.Memory.Write<string>("My super string", new IntPtr(0x458732), 0xC4, 0x4C);
-```  
 
 ### Todos
  - Detour
