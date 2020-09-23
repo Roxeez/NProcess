@@ -40,16 +40,18 @@ namespace NProcess.Memory
             Kernel32.VirtualProtectEx(handle, address, bytes.GetMarshalSize(), MemoryProtection.ExecuteReadWrite, out MemoryProtection originalProtection);
             unsafe
             {
-                var pointer = (byte*) address;
+                var pointer = (byte*)address;
                 if (pointer == null)
                 {
                     throw new Win32Exception($"Can't get pointer {address}");
                 }
+
                 for (int i = 0; i < bytes.Length; i++)
                 {
                     pointer[i] = bytes[i];
                 }
             }
+
             Kernel32.VirtualProtectEx(handle, address, bytes.GetMarshalSize(), originalProtection, out MemoryProtection ignored);
         }
     }

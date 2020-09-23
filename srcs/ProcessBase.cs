@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using NProcess.Extension;
+using NProcess.Interop;
+using NProcess.Interop.Enum;
 using NProcess.Memory;
 using NProcess.Module;
 using NProcess.Window;
@@ -20,12 +23,15 @@ namespace NProcess
             modules = process.GetModules(this);
             windows = process.GetWindows(this);
 
+            Handle = Kernel32.OpenProcess(ProcessAccess.All, false, process.Id);
+
             Module = GetModule(process.MainModule?.ModuleName);
             Window = GetWindow(process.MainWindowTitle);
         }
 
         public int Id => process.Id;
         public string Name => process.ProcessName;
+        public IntPtr Handle { get; }
         public IEnumerable<IModule> Modules => modules.Values;
         public IEnumerable<IWindow> Windows => windows;
         public IModule Module { get; }
@@ -43,6 +49,9 @@ namespace NProcess
 
         public abstract IMemory Memory { get; }
 
-        public abstract void Dispose();
+        public virtual void Dispose()
+        {
+            Kernel32.CloseHandle(Handle);
+        }
     }
 }

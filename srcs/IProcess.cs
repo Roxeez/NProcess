@@ -22,6 +22,11 @@ namespace NProcess
         string Name { get; }
 
         /// <summary>
+        ///     Handle of process
+        /// </summary>
+        IntPtr Handle { get; }
+
+        /// <summary>
         ///     Contains all modules of process
         /// </summary>
         IEnumerable<IModule> Modules { get; }
@@ -45,7 +50,7 @@ namespace NProcess
         ///     Memory of this process
         /// </summary>
         IMemory Memory { get; }
-        
+
 
         /// <summary>
         ///     Get module by name

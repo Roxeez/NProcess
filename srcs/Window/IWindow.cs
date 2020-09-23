@@ -27,9 +27,9 @@ namespace NProcess.Window
         ///     Keyboard object attached to this window
         /// </summary>
         IKeyboard Keyboard { get; }
-        
+
         /// <summary>
-        /// Mouse object attached to this window
+        ///     Mouse object attached to this window
         /// </summary>
         IMouse Mouse { get; }
 

@@ -82,18 +82,18 @@ namespace NProcess.Module
             }
             else if (type == typeof(int))
             {
-                bytes = BitConverter.GetBytes((int) (object) value);
+                bytes = BitConverter.GetBytes((int)(object)value);
             }
             else if (type == typeof(long))
             {
-                bytes = BitConverter.GetBytes((long) (object) value);
+                bytes = BitConverter.GetBytes((long)(object)value);
             }
 
             if (bytes == default)
             {
                 throw new Win32Exception($"Failed to convert {type.Name} to bytes");
             }
-            
+
             Process.Memory.Write(address, bytes);
         }
 

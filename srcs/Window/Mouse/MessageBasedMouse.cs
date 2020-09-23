@@ -12,12 +12,13 @@ namespace NProcess.Window.Mouse
         {
             this.handle = handle;
         }
-        
+
         public void LeftClick(int x, int y)
         {
             User32.PostMessage(handle, WindowsMessage.LeftButtonDown, new UIntPtr(0x00000001), CreateLParam(x, y));
             User32.PostMessage(handle, WindowsMessage.LeftButtonUp, new UIntPtr(0x00000000), CreateLParam(x, y));
-;        }
+            ;
+        }
 
         public void RightClick(int x, int y)
         {
@@ -30,10 +31,10 @@ namespace NProcess.Window.Mouse
             User32.PostMessage(handle, WindowsMessage.MiddleButtonDown, new UIntPtr(0x00000001), CreateLParam(x, y));
             User32.PostMessage(handle, WindowsMessage.MiddleButtonUp, new UIntPtr(0x00000000), CreateLParam(x, y));
         }
-        
+
         private static UIntPtr CreateLParam(int x, int y)
         {
-            return new UIntPtr((uint)((y << 16) | x));
+            return new UIntPtr((uint)(y << 16 | x));
         }
     }
 }

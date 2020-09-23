@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Runtime.InteropServices;
 using NProcess.Extension;
 using NProcess.Interop;
 using NProcess.Interop.Enum;
@@ -34,6 +33,7 @@ namespace NProcess.Memory
             {
                 throw new Win32Exception($"Failed to write bytes to {address}");
             }
+
             Kernel32.VirtualProtectEx(handle, address, bytes.GetMarshalSize(), originalProtection, out MemoryProtection ignored);
         }
     }
