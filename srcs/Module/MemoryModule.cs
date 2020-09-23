@@ -8,11 +8,11 @@ using NProcess.Memory;
 
 namespace NProcess.Module
 {
-    public sealed class NProcessModule : IModule
+    public sealed class MemoryModule : IModule
     {
         private readonly Dictionary<Pattern, IntPtr> cachedPatterns;
 
-        public NProcessModule(IProcess process, string name, IntPtr address, int size)
+        public MemoryModule(IProcess process, string name, IntPtr address, int size)
         {
             Process = process;
             Name = name;

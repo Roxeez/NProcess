@@ -1,4 +1,5 @@
 ﻿using NProcess.Window.Keyboard;
+using NProcess.Window.Mouse;
 
 namespace NProcess.Window
 {
@@ -26,6 +27,11 @@ namespace NProcess.Window
         ///     Keyboard object attached to this window
         /// </summary>
         IKeyboard Keyboard { get; }
+        
+        /// <summary>
+        /// Mouse object attached to this window
+        /// </summary>
+        IMouse Mouse { get; }
 
         /// <summary>
         ///     Bring window to front
