@@ -16,7 +16,7 @@ namespace NProcess.Extension
             {
                 ProcessModule module = process.Modules[i];
 
-                modules[module.ModuleName] = new NProcessModule(typedProcess, module.ModuleName, module.BaseAddress, module.ModuleMemorySize);
+                modules[module.ModuleName] = new MemoryModule(typedProcess, module.ModuleName, module.BaseAddress, module.ModuleMemorySize);
             }
 
             return modules;
@@ -34,7 +34,7 @@ namespace NProcess.Extension
                     continue;
                 }
 
-                output.Add(new NProcessWindow(typedProcess, handle));
+                output.Add(new ProcessWindow(typedProcess, handle));
             }
 
             return output;

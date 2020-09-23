@@ -3,20 +3,22 @@ using NProcess.Interop;
 using NProcess.Interop.Enum;
 using NProcess.Utility;
 using NProcess.Window.Keyboard;
+using NProcess.Window.Mouse;
 
 namespace NProcess.Window
 {
-    public class NProcessWindow : IWindow
+    public class ProcessWindow : IWindow
     {
         private readonly IntPtr handle;
         private readonly IProcess process;
 
-        public NProcessWindow(IProcess process, IntPtr handle)
+        public ProcessWindow(IProcess process, IntPtr handle)
         {
             this.process = process;
             this.handle = handle;
 
-            Keyboard = new NProcessKeyboard(handle);
+            Keyboard = new MessageBasedKeyboard(handle);
+            Mouse = new MessageBasedMouse(handle);
         }
 
         public string Title
@@ -28,6 +30,7 @@ namespace NProcess.Window
         public bool IsMainWindow => process.Window == this;
         public bool IsFocused => User32.GetForegroundWindow() == handle;
         public IKeyboard Keyboard { get; }
+        public IMouse Mouse { get; }
 
         public void Focus()
         {

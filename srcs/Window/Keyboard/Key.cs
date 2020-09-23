@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NProcess.Interop.Enum
+namespace NProcess.Window.Keyboard
 {
     [Flags]
     public enum Key

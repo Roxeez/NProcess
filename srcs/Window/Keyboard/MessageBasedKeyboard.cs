@@ -7,24 +7,24 @@ using NProcess.Interop.Enum;
 
 namespace NProcess.Window.Keyboard
 {
-    public class NProcessKeyboard : IKeyboard
+    public class MessageBasedKeyboard : IKeyboard
     {
         private readonly IntPtr handle;
         private readonly HashSet<Key> holdKeys;
 
-        public NProcessKeyboard(IntPtr handle)
+        public MessageBasedKeyboard(IntPtr handle)
         {
             this.handle = handle;
             holdKeys = new HashSet<Key>();
         }
 
-        public void PressKey(Key key)
+        public void Send(Key key)
         {
             User32.PostMessage(handle, WindowsMessage.KeyDown, new UIntPtr((uint)key), key.CreateLParam(false));
             User32.PostMessage(handle, WindowsMessage.KeyUp, new UIntPtr((uint)key), key.CreateLParam(true));
         }
 
-        public void HoldKey(Key key)
+        public void Hold(Key key)
         {
             if (holdKeys.Contains(key))
             {
@@ -36,7 +36,7 @@ namespace NProcess.Window.Keyboard
             User32.PostMessage(handle, WindowsMessage.KeyDown, new UIntPtr((uint)key), key.CreateLParam(false));
         }
 
-        public void HoldKey(Key key, TimeSpan time)
+        public void Hold(Key key, TimeSpan time)
         {
             if (holdKeys.Contains(key))
             {
@@ -47,10 +47,10 @@ namespace NProcess.Window.Keyboard
 
             User32.PostMessage(handle, WindowsMessage.KeyDown, new UIntPtr((uint)key), key.CreateLParam(false));
 
-            Task.Delay(time).ContinueWith(x => { ReleaseKey(key); });
+            Task.Delay(time).ContinueWith(x => { Release(key); });
         }
 
-        public void ReleaseKey(Key key)
+        public void Release(Key key)
         {
             if (!holdKeys.Contains(key))
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using NProcess.Interop;
 using NProcess.Interop.Enum;
+using NProcess.Window.Keyboard;
 
 namespace NProcess.Extension
 {

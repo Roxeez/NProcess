@@ -17,8 +17,4 @@
 		<PackageLicenseUrl>https://raw.githubusercontent.com/Roxeez/NProcess/master/LICENSE</PackageLicenseUrl>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="Window\Mouse" />
-    </ItemGroup>
-
 </Project>

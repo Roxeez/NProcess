@@ -856,91 +856,91 @@
         ///     posted to the window that contains the cursor. Otherwise, the message is posted to the window that has captured the
         ///     mouse.
         /// </summary>
-        Mousemove = 0x0200,
+        MouseMove = 0x0200,
 
         /// <summary>
         ///     The WM_LBUTTONDOWN message is posted when the user presses the left mouse button while the cursor is in the client
         ///     area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor. Otherwise,
         ///     the message is posted to the window that has captured the mouse.
         /// </summary>
-        Lbuttondown = 0x0201,
+        LeftButtonDown = 0x0201,
 
         /// <summary>
         ///     The WM_LBUTTONUP message is posted when the user releases the left mouse button while the cursor is in the client
         ///     area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor. Otherwise,
         ///     the message is posted to the window that has captured the mouse.
         /// </summary>
-        Lbuttonup = 0x0202,
+        LeftButtonUp = 0x0202,
 
         /// <summary>
         ///     The WM_LBUTTONDBLCLK message is posted when the user double-clicks the left mouse button while the cursor is in the
         ///     client area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor.
         ///     Otherwise, the message is posted to the window that has captured the mouse.
         /// </summary>
-        Lbuttondblclk = 0x0203,
+        LeftButtonDoubleClick = 0x0203,
 
         /// <summary>
         ///     The WM_RBUTTONDOWN message is posted when the user presses the right mouse button while the cursor is in the client
         ///     area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor. Otherwise,
         ///     the message is posted to the window that has captured the mouse.
         /// </summary>
-        Rbuttondown = 0x0204,
+        RightButtonDown = 0x0204,
 
         /// <summary>
         ///     The WM_RBUTTONUP message is posted when the user releases the right mouse button while the cursor is in the client
         ///     area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor. Otherwise,
         ///     the message is posted to the window that has captured the mouse.
         /// </summary>
-        Rbuttonup = 0x0205,
+        RightButtonUp = 0x0205,
 
         /// <summary>
         ///     The WM_RBUTTONDBLCLK message is posted when the user double-clicks the right mouse button while the cursor is in
         ///     the client area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor.
         ///     Otherwise, the message is posted to the window that has captured the mouse.
         /// </summary>
-        Rbuttondblclk = 0x0206,
+        RightButtonDoubleClick = 0x0206,
 
         /// <summary>
         ///     The WM_MBUTTONDOWN message is posted when the user presses the middle mouse button while the cursor is in the
         ///     client area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor.
         ///     Otherwise, the message is posted to the window that has captured the mouse.
         /// </summary>
-        Mbuttondown = 0x0207,
+        MiddleButtonDown = 0x0207,
 
         /// <summary>
         ///     The WM_MBUTTONUP message is posted when the user releases the middle mouse button while the cursor is in the client
         ///     area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor. Otherwise,
         ///     the message is posted to the window that has captured the mouse.
         /// </summary>
-        Mbuttonup = 0x0208,
+        MiddleButtonUp = 0x0208,
 
         /// <summary>
         ///     The WM_MBUTTONDBLCLK message is posted when the user double-clicks the middle mouse button while the cursor is in
         ///     the client area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor.
         ///     Otherwise, the message is posted to the window that has captured the mouse.
         /// </summary>
-        Mbuttondblclk = 0x0209,
+        MiddleButtonDoubleClick = 0x0209,
 
         /// <summary>
         ///     The WM_MOUSEWHEEL message is sent to the focus window when the mouse wheel is rotated. The DefWindowProc function
         ///     propagates the message to the window's parent. There should be no internal forwarding of the message, since
         ///     DefWindowProc propagates it up the parent chain until it finds a window that processes it.
         /// </summary>
-        Mousewheel = 0x020A,
+        MouseWheel = 0x020A,
 
         /// <summary>
         ///     The WM_XBUTTONDOWN message is posted when the user presses the first or second X button while the cursor is in the
         ///     client area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor.
         ///     Otherwise, the message is posted to the window that has captured the mouse.
         /// </summary>
-        Xbuttondown = 0x020B,
+        XButtonDown = 0x020B,
 
         /// <summary>
         ///     The WM_XBUTTONUP message is posted when the user releases the first or second X button while the cursor is in the
         ///     client area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor.
         ///     Otherwise, the message is posted to the window that has captured the mouse.
         /// </summary>
-        Xbuttonup = 0x020C,
+        XButtonUp = 0x020C,
 
         /// <summary>
         ///     The WM_XBUTTONDBLCLK message is posted when the user double-clicks the first or second X button while the cursor is
@@ -955,12 +955,12 @@
         ///     forwarding of the message, since DefWindowProc propagates it up the parent chain until it finds a window that
         ///     processes it.
         /// </summary>
-        Mousehwheel = 0x020E,
+        MouseHorizontalWheel = 0x020E,
 
         /// <summary>
         ///     Use WM_MOUSELAST to specify the last mouse message. Used with PeekMessage() Function.
         /// </summary>
-        Mouselast = 0x020E,
+        MouseLast = 0x020E,
 
         /// <summary>
         ///     The WM_PARENTNOTIFY message is sent to the parent of a child window when the child window is created or destroyed,
@@ -969,7 +969,7 @@
         ///     window returns. When the child window is being destroyed, the system sends the message before any processing to
         ///     destroy the window takes place.
         /// </summary>
-        Parentnotify = 0x0210,
+        ParentNotify = 0x0210,
 
         /// <summary>
         ///     The WM_ENTERMENULOOP message informs an application's main window procedure that a menu modal loop has been
