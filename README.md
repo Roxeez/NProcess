@@ -104,10 +104,13 @@ public static void Main(string[] args)
         window.Title = "NProcess";
         
         // Press enter key and release it directly
-        window.Keyboard.PressKey(Key.Enter);
+        window.Keyboard.Press(Key.Enter);
         
         // Hold A key pressed for 3 seconds
-        window.Keyboard.HoldKey(Key.A, TimeSpan.FromSeconds(3));
+        window.Keyboard.Hold(Key.A, TimeSpan.FromSeconds(3));
+        
+        // Click using left button at 200/200 position in window
+        window.Mouse.LeftClick(200, 200);
     }
 }
 ```
