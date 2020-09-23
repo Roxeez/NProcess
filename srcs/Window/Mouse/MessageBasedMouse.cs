@@ -13,22 +13,22 @@ namespace NProcess.Window.Mouse
             this.handle = handle;
         }
         
-        public void LeftClick(Position position)
+        public void LeftClick(int x, int y)
         {
-            User32.PostMessage(handle, WindowsMessage.LeftButtonDown, new UIntPtr(0x00000001), CreateLParam(position.X, position.Y));
-            User32.PostMessage(handle, WindowsMessage.LeftButtonUp, new UIntPtr(0x00000000), CreateLParam(position.X, position.Y));
+            User32.PostMessage(handle, WindowsMessage.LeftButtonDown, new UIntPtr(0x00000001), CreateLParam(x, y));
+            User32.PostMessage(handle, WindowsMessage.LeftButtonUp, new UIntPtr(0x00000000), CreateLParam(x, y));
 ;        }
 
-        public void RightClick(Position position)
+        public void RightClick(int x, int y)
         {
-            User32.PostMessage(handle, WindowsMessage.RightButtonDown, new UIntPtr(0x00000001), CreateLParam(position.X, position.Y));
-            User32.PostMessage(handle, WindowsMessage.RightButtonUp, new UIntPtr(0x00000000), CreateLParam(position.X, position.Y));
+            User32.PostMessage(handle, WindowsMessage.RightButtonDown, new UIntPtr(0x00000001), CreateLParam(x, y));
+            User32.PostMessage(handle, WindowsMessage.RightButtonUp, new UIntPtr(0x00000000), CreateLParam(x, y));
         }
 
-        public void MiddleClick(Position position)
+        public void MiddleClick(int x, int y)
         {
-            User32.PostMessage(handle, WindowsMessage.MiddleButtonDown, new UIntPtr(0x00000001), CreateLParam(position.X, position.Y));
-            User32.PostMessage(handle, WindowsMessage.MiddleButtonUp, new UIntPtr(0x00000000), CreateLParam(position.X, position.Y));
+            User32.PostMessage(handle, WindowsMessage.MiddleButtonDown, new UIntPtr(0x00000001), CreateLParam(x, y));
+            User32.PostMessage(handle, WindowsMessage.MiddleButtonUp, new UIntPtr(0x00000000), CreateLParam(x, y));
         }
         
         private static UIntPtr CreateLParam(int x, int y)

@@ -11,19 +11,22 @@ namespace NProcess.Window.Mouse
         /// <summary>
         /// Perform a left click at selected position
         /// </summary>
-        /// <param name="position">Position where you want to click</param>
-        void LeftClick(Position position);
+        /// <param name="x">X position where you want to click</param>
+        /// <param name="y">Y position where you want to click</param>
+        void LeftClick(int x, int y);
         
         /// <summary>
         /// Perform a right click at selected position
         /// </summary>
-        /// <param name="position">Position where you want to click</param>
-        void RightClick(Position position);
+        /// <param name="x">X position where you want to click</param>
+        /// <param name="y">Y position where you want to click</param>
+        void RightClick(int x, int y);
         
         /// <summary>
         /// Perform a middle click at selected position
         /// </summary>
-        /// <param name="position">Position where you want to click</param>
-        void MiddleClick(Position position);
+        /// <param name="x">X position where you want to click</param>
+        /// <param name="y">Y position where you want to click</param>
+        void MiddleClick(int x, int y);
     }
 }
