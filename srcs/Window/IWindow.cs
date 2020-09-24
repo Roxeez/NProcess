@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using NProcess.Window.Keyboard;
 using NProcess.Window.Mouse;
 
@@ -7,7 +8,7 @@ namespace NProcess.Window
     /// <summary>
     ///     Represent a process window
     /// </summary>
-    public interface IWindow : IDisposable
+    public interface IWindow : IDisposable, IEquatable<IWindow>
     {
         /// <summary>
         ///     Title of this window
@@ -28,6 +29,16 @@ namespace NProcess.Window
         /// Process owning this window
         /// </summary>
         IProcess Process { get; }
+        
+        /// <summary>
+        /// Position of the window
+        /// </summary>
+        Point Position { get; }
+        
+        /// <summary>
+        /// Size of the window
+        /// </summary>
+        Size Size { get; }
 
         /// <summary>
         ///     Defined if this window is focused or not (foreground)
@@ -74,5 +85,24 @@ namespace NProcess.Window
         ///     Ex: if window was minimized window will be at the same position where it was before being minimized
         /// </summary>
         void Restore();
+
+        /// <summary>
+        /// Close window
+        /// </summary>
+        void Close();
+
+        /// <summary>
+        /// Resize window
+        /// </summary>
+        /// <param name="width">Width of window</param>
+        /// <param name="height">Height of window</param>
+        void Resize(int width, int height);
+        
+        /// <summary>
+        /// Move window
+        /// </summary>
+        /// <param name="x">X position of window</param>
+        /// <param name="y">Y position of window</param>
+        void Move(int x, int y);
     }
 }

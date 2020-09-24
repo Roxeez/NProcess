@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using NProcess.Memory;
 using NProcess.Module;
 using NProcess.Window;
@@ -9,7 +10,7 @@ namespace NProcess
     /// <summary>
     ///     Represent a process
     /// </summary>
-    public interface IProcess : IDisposable
+    public interface IProcess : IDisposable, IEquatable<IProcess>
     {
         /// <summary>
         ///     Id of process

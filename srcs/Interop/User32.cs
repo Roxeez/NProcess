@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 using NProcess.Interop.Enum;
+using NProcess.Interop.Struct;
 
 namespace NProcess.Interop
 {
@@ -40,7 +41,13 @@ namespace NProcess.Interop
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool PostMessage(IntPtr hWnd, WindowsMessage msg, UIntPtr wParam, UIntPtr lParam);
 
-        [DllImport("user32")]
+        [DllImport("user32", SetLastError = true)]
         public static extern int MapVirtualKey(int key, KeyTranslationType translationType);
+
+        [DllImport("user32.dll")]
+        public static extern bool GetWindowRect(IntPtr hWnd, out Rect rectangle);
+        
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool MoveWindow(IntPtr hWnd, int x, int y, int nWidth, int nHeight, bool bRepaint);
     }
 }

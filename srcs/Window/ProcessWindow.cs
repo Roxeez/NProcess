@@ -1,6 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using NProcess.Extension;
 using NProcess.Interop;
 using NProcess.Interop.Enum;
+using NProcess.Interop.Struct;
 using NProcess.Utility;
 using NProcess.Window.Keyboard;
 using NProcess.Window.Mouse;
@@ -23,9 +28,11 @@ namespace NProcess.Window
             set => User32.SetWindowText(Handle, value);
         }
 
-        public bool IsMainWindow => Process.Window == this;
+        public bool IsMainWindow => Process.Window.Equals(this);
         public IntPtr Handle { get; }
         public IProcess Process { get; }
+        public Point Position => WindowUtility.GetWindowRect(Handle).ToPoint();
+        public Size Size => WindowUtility.GetWindowRect(Handle).ToSize();
         public bool IsFocused => User32.GetForegroundWindow() == Handle;
         public IKeyboard Keyboard { get; }
         public IMouse Mouse { get; }
@@ -74,10 +81,30 @@ namespace NProcess.Window
             User32.ShowWindow(Handle, WindowState.Restore);
         }
 
+        public void Close()
+        {
+            User32.PostMessage(Handle, WindowsMessage.Close, UIntPtr.Zero, UIntPtr.Zero);
+        }
+
+        public void Resize(int width, int height)
+        {
+            User32.MoveWindow(Handle, Position.X, Position.Y, width, height, true);
+        }
+
+        public void Move(int x, int y)
+        {
+            User32.MoveWindow(Handle, x, y, Size.Width, Size.Height, true);
+        }
+
         public void Dispose()
         {
             Keyboard.Dispose();
             Mouse.Dispose();
+        }
+
+        public bool Equals(IWindow other)
+        {
+            return other != null && other.Process.Equals(Process) && other.Handle.Equals(Handle);
         }
     }
 }

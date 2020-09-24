@@ -51,7 +51,6 @@ namespace NProcess.Memory
                     pointer[i] = bytes[i];
                 }
             }
-
             Kernel32.VirtualProtectEx(handle, address, bytes.GetMarshalSize(), originalProtection, out MemoryProtection ignored);
         }
     }

@@ -58,5 +58,10 @@ namespace NProcess
             
             Kernel32.CloseHandle(Handle);
         }
+
+        public bool Equals(IProcess other)
+        {
+            return other != null && other.Id == Id && other.Handle == Handle;
+        }
     }
 }

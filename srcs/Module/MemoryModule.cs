@@ -56,7 +56,7 @@ namespace NProcess.Module
 
             if (value == default)
             {
-                throw new Win32Exception($"Failed to convert bytes to {type.Name}");
+                throw new InvalidOperationException($"Failed to convert bytes to {type.Name}");
             }
 
             return (T)value;
@@ -91,7 +91,7 @@ namespace NProcess.Module
 
             if (bytes == default)
             {
-                throw new Win32Exception($"Failed to convert {type.Name} to bytes");
+                throw new InvalidOperationException($"Failed to convert {type.Name} to bytes");
             }
 
             Process.Memory.Write(address, bytes);
