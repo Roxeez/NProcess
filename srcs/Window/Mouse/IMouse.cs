@@ -1,9 +1,11 @@
-﻿namespace NProcess.Window.Mouse
+﻿using System;
+
+namespace NProcess.Window.Mouse
 {
     /// <summary>
     ///     Mouse used to click in window
     /// </summary>
-    public interface IMouse
+    public interface IMouse : IDisposable
     {
         /// <summary>
         ///     Perform a left click at selected position

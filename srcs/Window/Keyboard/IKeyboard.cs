@@ -5,7 +5,7 @@ namespace NProcess.Window.Keyboard
     /// <summary>
     ///     Keyboard used to send keys to window
     /// </summary>
-    public interface IKeyboard
+    public interface IKeyboard : IDisposable
     {
         /// <summary>
         ///     Press and release a key

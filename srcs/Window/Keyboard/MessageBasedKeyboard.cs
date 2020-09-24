@@ -9,19 +9,18 @@ namespace NProcess.Window.Keyboard
 {
     public class MessageBasedKeyboard : IKeyboard
     {
-        private readonly IntPtr handle;
-        private readonly HashSet<Key> holdKeys;
+        private readonly IWindow window;
+        private readonly HashSet<Key> holdKeys = new HashSet<Key>();
 
-        public MessageBasedKeyboard(IntPtr handle)
+        public MessageBasedKeyboard(IWindow window)
         {
-            this.handle = handle;
-            holdKeys = new HashSet<Key>();
+            this.window = window;
         }
 
         public void Send(Key key)
         {
-            User32.PostMessage(handle, WindowsMessage.KeyDown, new UIntPtr((uint)key), key.CreateLParam(false));
-            User32.PostMessage(handle, WindowsMessage.KeyUp, new UIntPtr((uint)key), key.CreateLParam(true));
+            User32.PostMessage(window.Handle, WindowsMessage.KeyDown, new UIntPtr((uint)key), key.CreateLParam(false));
+            User32.PostMessage(window.Handle, WindowsMessage.KeyUp, new UIntPtr((uint)key), key.CreateLParam(true));
         }
 
         public void Hold(Key key)
@@ -33,7 +32,7 @@ namespace NProcess.Window.Keyboard
 
             holdKeys.Add(key);
 
-            User32.PostMessage(handle, WindowsMessage.KeyDown, new UIntPtr((uint)key), key.CreateLParam(false));
+            User32.PostMessage(window.Handle, WindowsMessage.KeyDown, new UIntPtr((uint)key), key.CreateLParam(false));
         }
 
         public void Hold(Key key, TimeSpan time)
@@ -45,7 +44,7 @@ namespace NProcess.Window.Keyboard
 
             holdKeys.Add(key);
 
-            User32.PostMessage(handle, WindowsMessage.KeyDown, new UIntPtr((uint)key), key.CreateLParam(false));
+            User32.PostMessage(window.Handle, WindowsMessage.KeyDown, new UIntPtr((uint)key), key.CreateLParam(false));
 
             Task.Delay(time).ContinueWith(x => { Release(key); });
         }
@@ -57,9 +56,17 @@ namespace NProcess.Window.Keyboard
                 return;
             }
 
-            User32.PostMessage(handle, WindowsMessage.KeyUp, new UIntPtr((uint)key), key.CreateLParam(true));
+            User32.PostMessage(window.Handle, WindowsMessage.KeyUp, new UIntPtr((uint)key), key.CreateLParam(true));
 
             holdKeys.Remove(key);
+        }
+
+        public void Dispose()
+        {
+            foreach (Key key in holdKeys)
+            {
+                Release(key);
+            }
         }
     }
 }

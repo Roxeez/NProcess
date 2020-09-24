@@ -51,6 +51,11 @@ namespace NProcess
 
         public virtual void Dispose()
         {
+            foreach (IWindow window in Windows)
+            {
+                window.Dispose();
+            }
+            
             Kernel32.CloseHandle(Handle);
         }
     }

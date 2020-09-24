@@ -1,4 +1,5 @@
-﻿using NProcess.Window.Keyboard;
+﻿using System;
+using NProcess.Window.Keyboard;
 using NProcess.Window.Mouse;
 
 namespace NProcess.Window
@@ -6,7 +7,7 @@ namespace NProcess.Window
     /// <summary>
     ///     Represent a process window
     /// </summary>
-    public interface IWindow
+    public interface IWindow : IDisposable
     {
         /// <summary>
         ///     Title of this window
@@ -17,6 +18,16 @@ namespace NProcess.Window
         ///     Check if this window is main window of process
         /// </summary>
         bool IsMainWindow { get; }
+        
+        /// <summary>
+        /// Handle of the window
+        /// </summary>
+        IntPtr Handle { get; }
+        
+        /// <summary>
+        /// Process owning this window
+        /// </summary>
+        IProcess Process { get; }
 
         /// <summary>
         ///     Defined if this window is focused or not (foreground)
