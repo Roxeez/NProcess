@@ -15,17 +15,17 @@ Since NProcess is still in development, much features will be added later
 
 Using Package Manager
 ```sh
-Install-Package NProcess -Version 1.0.0
+Install-Package NProcess -Version 1.0.1
 ```
 
 Using .NET CLI
 ```sh
-dotnet add package NProcess -Version 1.0.0
+dotnet add package NProcess -Version 1.0.1
 ```
 
 Using Package Reference
 ```xml
-<PackageReference Include="NProcess" Version="1.0.0" />
+<PackageReference Include="NProcess" Version="1.0.1" />
 ```
 
 ## Example
